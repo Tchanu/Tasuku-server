@@ -1,5 +1,5 @@
 # Tasuku Rest API
-> Tasuku is todo list app. Tasks are synced on multiple devices using rest API.
+> Tasuku is todo list mobile application developed by [@Tchanu](https://github.com/Tchanu) and [@Beka Chachua](https://github.com/bekaweirdo). Tasks are synced on multiple devices using this rest API.
 
 ## API URL
 http://35.204.63.61:3001/api/tasks

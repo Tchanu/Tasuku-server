@@ -1,25 +1,25 @@
 'use strict';
 
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-let TaskSchema = new Schema({
+const TaskSchema = new Schema({
     title: {
         type: String,
         Required: 'Title is required',
-        maxLength: 50
+        maxLength: 50,
     },
     description: {
       type: String,
     },
     date: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     },
     status: {
         type: String,
-        default: 2
-    }
+        default: 2,
+    },
 });
 
 

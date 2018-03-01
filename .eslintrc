@@ -1,5 +1,10 @@
 {
-  "extends": "google",
+  "extends": "standard",
+  "rules": {
+    "import/first": 0,
+    "import/no-webpack-loader-syntax": 0
+
+  },
   "parserOptions": {
     "ecmaVersion": 6
   }

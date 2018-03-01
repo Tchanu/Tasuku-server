@@ -6,7 +6,9 @@ const Task = mongoose.model('Tasks')
 
 // Index
 exports.index = function (req, res) {
-  Task.find({}, (err, task) => {
+  Task.find({
+    user_id: req.decoded.user_id
+  }, (err, task) => {
     if (err) {
       res.send(err)
     }
@@ -16,7 +18,9 @@ exports.index = function (req, res) {
 
 // Create
 exports.create = function (req, res) {
+  req.query.user_id = req.decoded.user_id
   const newTask = new Task(req.query)
+
   newTask.save((err, task) => {
     if (err) {
       res.send(err)
@@ -27,7 +31,10 @@ exports.create = function (req, res) {
 
 // Show
 exports.show = function (req, res) {
-  Task.findById(req.params.taskId, (err, task) => {
+  Task.findOne({
+    _id: req.params.taskId,
+    user_id: req.decoded.user_id
+  }, (err, task) => {
     if (err) {
       res.send(err)
     }
@@ -37,21 +44,24 @@ exports.show = function (req, res) {
 
 // Update
 exports.update = function (req, res) {
-  Task.findOneAndUpdate(
-    {_id: req.params.taskId},
-    req.query, {new: true},
-    (err, task) => {
-      if (err) {
-        res.send(err)
-      }
-      res.json(task)
-    })
+  Task.findOneAndUpdate({
+    _id: req.params.taskId,
+    user_id: req.decoded.user_id
+  },
+  req.query, {new: true},
+  (err, task) => {
+    if (err) {
+      res.send(err)
+    }
+    res.json(task)
+  })
 }
 
 // Delete
 exports.del = function (req, res) {
   Task.remove({
-    _id: req.params.taskId
+    _id: req.params.taskId,
+    user_id: req.decoded.user_id
   }, (err) => {
     if (err) {
       res.send(err)

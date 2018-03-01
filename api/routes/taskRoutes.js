@@ -1,5 +1,3 @@
-'use strict'
-
 const taskController = require('../controllers/taskController')
 
 module.exports = function (app) {

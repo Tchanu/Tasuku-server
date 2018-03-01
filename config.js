@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   production: {
     port: 3007,
     db_uri: 'mongodb://tasuku:ju4yfh68d52ofj@localhost:27015/tasukudb',
@@ -10,3 +10,5 @@ module.exports = {
     secret: 'there is no secret'
   }
 }
+
+module.exports = config[process.env.NODE_ENV || 'default']

@@ -18,6 +18,10 @@ const TaskSchema = new Schema({
   status: {
     type: String,
     default: 2
+  },
+  user_id: {
+    type: String,
+    Required: 'user_id is required'
   }
 })
 

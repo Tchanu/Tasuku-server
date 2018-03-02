@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
-const config = require('../../config')
+const token = require('../../token')
 
 require('../models/userModel')
 
@@ -31,15 +30,10 @@ exports.login = function (req, res) {
     }
 
     if (bcrypt.compareSync(req.query.password, user.password)) {
-      const payload = {
+      res.status(200).send(token.generate({
         user_id: user._id,
         admin: user.admin // Todo admin features
-      }
-
-      let token = jwt.sign(payload, config.secret, {
-        expiresIn: 86400 // expires in 24 hours
-      })
-      res.status(200).send({auth: true, token: token})
+      }))
     }
   })
 }
@@ -82,11 +76,10 @@ exports.register = function (req, res) {
     },
     function (err, user) {
       if (err) return res.status(500).send(err)
-      // create a token
-      let token = jwt.sign({user_id: user._id}, config.secret, {
-        expiresIn: 86400 // expires in 24 hours
-      })
-      res.status(200).send({auth: true, token: token})
+
+      res.status(200).send(token.generate({
+        user_id: user._id
+      }))
     })
   })
 }

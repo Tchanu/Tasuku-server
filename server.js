@@ -2,7 +2,6 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 
-const access = require('./access')
 const taskRoutes = require('./api/routes/taskRoutes')
 const userRoutes = require('./api/routes/userRoutes')
 
@@ -15,8 +14,11 @@ mongoose.connect(config.db_uri)
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
-// midlewares
-access(app)
+// headers
+app.use('/', function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  next()
+})
 
 // routing
 taskRoutes(app)

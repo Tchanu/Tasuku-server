@@ -6,7 +6,7 @@ module.exports = function (app) {
   app.use('/api/tasks', token.verify)
 
   app.route('/api/tasks')
-    .get(taskController.index)
+    .get(token.verify, taskController.index)
     .post(taskController.create)
 
   app.route('/api/tasks/:taskId')

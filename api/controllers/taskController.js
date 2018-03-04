@@ -18,8 +18,8 @@ exports.index = function (req, res) {
 
 // Create
 exports.create = function (req, res) {
-  req.query.user_id = req.decoded.user_id
-  const newTask = new Task(req.query)
+  req.body.user_id = req.decoded.user_id
+  const newTask = new Task(req.body)
 
   newTask.save((err, task) => {
     if (err) {
@@ -48,7 +48,7 @@ exports.update = function (req, res) {
     _id: req.params.taskId,
     user_id: req.decoded.user_id
   },
-  req.query, {new: true},
+  req.body, {new: true},
   (err, task) => {
     if (err) {
       res.send(err)
